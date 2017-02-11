@@ -7,3 +7,8 @@ bower_components
 aot/*
 dist/*
 yarn.lock
+
+# Intellij
+.idea/
+*.iml
+*.iws
