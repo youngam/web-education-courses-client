@@ -1,0 +1,10 @@
+<div>
+    <p> {{title}}</p>
+    <ul>
+        <li *ngFor="let lesson of lessons">
+            <span>{{lesson.title}}</span> {{lesson.description}}
+        </li>
+    </ul>
+
+    <button (click)="addLesson()">Add lesson</button>
+</div>

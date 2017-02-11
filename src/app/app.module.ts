@@ -6,6 +6,9 @@ import {HttpModule} from "@angular/http";
 import {AuthComponent} from "./auth/auth.component";
 import {AppRoutingModule} from "./app.routing-module";
 import {AuthService} from "./auth/auth.service";
+import {LessonsComponent} from "./lessons/lessons.component";
+import {LessonsService} from "./lessons/lessons.service";
+import {CreateLessonComponent} from "./lessons/create-lesson.component";
 
 @NgModule({
     imports: [
@@ -16,10 +19,13 @@ import {AuthService} from "./auth/auth.service";
 
     declarations: [
         AppComponent,
-        AuthComponent],
+        AuthComponent,
+        LessonsComponent,
+        CreateLessonComponent],
 
     providers: [
-        AuthService
+        AuthService,
+        LessonsService
     ],
 
     bootstrap: [AppComponent]
