@@ -1,0 +1,7 @@
+.user-credentials {
+    border: none;
+}
+.user-credentials input {
+    margin-bottom: 10px;
+    display: block;
+}
