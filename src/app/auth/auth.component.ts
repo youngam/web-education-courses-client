@@ -13,13 +13,15 @@ import {Profile} from "../entity/profile";
 })
 
 export class AuthComponent {
-    currentUser: Profile;
+    errorMsg: string;
 
     constructor(private authService: AuthService) {
 
     }
 
     onSignUpClick(name: string, password: string) : void {
+        this.errorMsg = null;
+
         this.authService.signUpUser(name, password).subscribe(response => {
 
             if (response.errorMessage != null) this.showError(response.errorMessage);
@@ -29,6 +31,8 @@ export class AuthComponent {
     }
 
     onSignInClick(name: string, password: string) : void {
+        this.errorMsg = null;
+
         this.authService.signInUser(name, password).subscribe(response => {
 
             if (response.errorMessage != null) this.showError(response.errorMessage);
@@ -39,7 +43,7 @@ export class AuthComponent {
 
     showError(errorMessage: string) : void {
         console.log("RESPONSE error: " + errorMessage);
-        //TODO show error view
+        this.errorMsg = errorMessage;
     }
 
     setUserInfo(userProfile: Profile) : void {

@@ -5,3 +5,8 @@
     margin-bottom: 10px;
     display: block;
 }
+
+.error-text {
+    margin-top: 0;
+    color: #FF0000;
+}
