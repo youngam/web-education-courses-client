@@ -12,6 +12,8 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require('rxjs/add/operator/map');
 var md5_1 = require("ts-md5/dist/md5");
+var root_request_1 = require("../entity/root-request");
+var api_method_1 = require("../entity/api-method");
 /**
  * Created by alex on 2/7/17.
  */
@@ -21,13 +23,25 @@ var AuthService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.url = 'http://localhost:8080/getUser';
     }
-    AuthService.prototype.signInUser = function (profile) {
-        var request = {
-            name: profile.name,
-            password: md5_1.Md5.hashStr(profile.password)
-        };
-        return this.http.post(this.url, request, { headers: this.headers })
+    AuthService.prototype.signUpUser = function (name, password) {
+        var request = this.getUserRequestBody(name, password);
+        var rootRequest = new root_request_1.RootRequest(api_method_1.ApiMethods.SIGN_UP, request);
+        console.log("REQUEST: " + JSON.stringify(rootRequest));
+        return this.http.post(this.url, rootRequest, { headers: this.headers })
             .map(function (response) { return response.json(); });
+    };
+    AuthService.prototype.signInUser = function (name, password) {
+        var request = this.getUserRequestBody(name, password);
+        var rootRequest = new root_request_1.RootRequest(api_method_1.ApiMethods.SIGN_IN, request);
+        console.log("REQUEST: " + JSON.stringify(rootRequest));
+        return this.http.post(this.url, rootRequest, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    AuthService.prototype.getUserRequestBody = function (name, password) {
+        return {
+            name: name,
+            password: md5_1.Md5.hashStr(password)
+        };
     };
     AuthService = __decorate([
         core_1.Injectable(), 

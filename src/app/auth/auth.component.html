@@ -7,7 +7,7 @@
             <label> Password
                 <input #password type="password" placeholder="Password" required>
             </label>
-            <input (click)="signInUser(login.value, password.value)" type="button" value="Sign in">
-            <input type="button" value="Sign Up">
+            <input (click)="onSignInClick(login.value, password.value)" type="button" value="Sign in">
+            <input (click)="onSignUpClick(login.value, password.value)" type="button" value="Sign Up">
         </fieldset>
 </div>

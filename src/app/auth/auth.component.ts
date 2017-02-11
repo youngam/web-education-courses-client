@@ -12,25 +12,37 @@ import {Profile} from "../entity/profile";
     styleUrls: ['auth.component.css']
 })
 
-export class AuthComponent implements OnInit{
+export class AuthComponent {
     currentUser: Profile;
 
     constructor(private authService: AuthService) {
 
     }
 
-    ngOnInit(): void {
-/*        this.authService.fetchUser().subscribe(profile => {
-                console.log(profile);
-            }
-        );*/
+    onSignUpClick(name: string, password: string) : void {
+        this.authService.signUpUser(name, password).subscribe(response => {
+
+            if (response.errorMessage != null) this.showError(response.errorMessage);
+
+            else this.setUserInfo(response as Profile);
+        });
     }
 
-    signInUser(name: string, password: string) : void {
-        let profile: Profile = new Profile(name, password);
-        console.log("REQUEST: " + profile.name + " " + profile.password);
-        this.authService.signInUser(profile).subscribe(
-            profile => console.log("RESPONSE user: " + profile.name +" " + profile.id)
-        );
+    onSignInClick(name: string, password: string) : void {
+        this.authService.signInUser(name, password).subscribe(response => {
+
+            if (response.errorMessage != null) this.showError(response.errorMessage);
+
+            else this.setUserInfo(response as Profile);
+        });
+    }
+
+    showError(errorMessage: string) : void {
+        console.log("RESPONSE error: " + errorMessage);
+        //TODO show error view
+    }
+
+    setUserInfo(userProfile: Profile) : void {
+        console.log("RESPONSE user: " + userProfile.name + " " + userProfile.id);
     }
 }

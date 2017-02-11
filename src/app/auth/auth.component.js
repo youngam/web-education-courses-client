@@ -13,21 +13,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var auth_service_1 = require("./auth.service");
-var profile_1 = require("../entity/profile");
 var AuthComponent = (function () {
     function AuthComponent(authService) {
         this.authService = authService;
     }
-    AuthComponent.prototype.ngOnInit = function () {
-        /*        this.authService.fetchUser().subscribe(profile => {
-                        console.log(profile);
-                    }
-                );*/
+    AuthComponent.prototype.onSignUpClick = function (name, password) {
+        var _this = this;
+        this.authService.signUpUser(name, password).subscribe(function (response) {
+            if (response.errorMessage != null)
+                _this.showError(response.errorMessage);
+            else
+                _this.setUserInfo(response);
+        });
     };
-    AuthComponent.prototype.signInUser = function (name, password) {
-        var profile = new profile_1.Profile(name, password);
-        console.log("REQUEST: " + profile.name + " " + profile.password);
-        this.authService.signInUser(profile).subscribe(function (profile) { return console.log("RESPONSE user: " + profile.name + " " + profile.id); });
+    AuthComponent.prototype.onSignInClick = function (name, password) {
+        var _this = this;
+        this.authService.signInUser(name, password).subscribe(function (response) {
+            if (response.errorMessage != null)
+                _this.showError(response.errorMessage);
+            else
+                _this.setUserInfo(response);
+        });
+    };
+    AuthComponent.prototype.showError = function (errorMessage) {
+        console.log("RESPONSE error: " + errorMessage);
+        //TODO show error view
+    };
+    AuthComponent.prototype.setUserInfo = function (userProfile) {
+        console.log("RESPONSE user: " + userProfile.name + " " + userProfile.id);
     };
     AuthComponent = __decorate([
         core_1.Component({
