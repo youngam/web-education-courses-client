@@ -10,12 +10,14 @@ import {CreateLessonComponent} from "./create-lesson.component";
 @Component({
     moduleId: module.id,
     selector: 'lessons',
+    styleUrls: ['lessons.component.css'],
     templateUrl: 'lessons.component.html'
 })
 export class LessonsComponent implements OnInit {
     static readonly URL: string = "lessons";
     title: string = "LessonsComponent";
     lessons: Lesson[];
+    selectedLesson: Lesson;
 
     constructor(private lessonsService: LessonsService,
                 private router: Router) {
@@ -31,6 +33,48 @@ export class LessonsComponent implements OnInit {
             response => {
                 console.log(response);
                 this.lessons = response;
+            }
+        )
+    }
+
+    onSelect(lesson: Lesson): void {
+        this.selectedLesson = lesson;
+    }
+
+    onDelete(lesson: Lesson) : void {
+        this.lessonsService.deleteLesson(lesson.id).subscribe(
+            response => {
+                console.log(response);
+                this.removeLesson(response.id);
+            }
+        )
+    }
+
+    onUpdateLesson(title: string, description: string) : void {
+        this.lessonsService.updateLesson(this.selectedLesson.id, title, description).subscribe(
+            response => {
+                this.selectedLesson = null;
+                console.log(response);
+                this.replaceLesson(response);
+            }
+        )
+    }
+
+    private replaceLesson(lessonForReplacing: Lesson) : void {
+        this.lessons.forEach(lesson => {
+                if (lesson.id == lessonForReplacing.id) {
+                    let indexToReplace = this.lessons.indexOf(lesson);
+                    this.lessons[indexToReplace] = lessonForReplacing;
+                }
+            }
+        )
+    }
+
+    private removeLesson(id: number) : void {
+        this.lessons.forEach(lesson => {
+                if (lesson.id == id) {
+                    this.lessons.splice(this.lessons.indexOf(lesson), 1)
+                }
             }
         )
     }

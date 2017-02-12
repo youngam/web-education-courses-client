@@ -1,10 +1,43 @@
-<div>
-    <p> {{title}}</p>
-    <ul>
-        <li *ngFor="let lesson of lessons">
-            <span>{{lesson.title}}</span> {{lesson.description}}
-        </li>
-    </ul>
+<section class="container">
 
-    <button (click)="addLesson()">Add lesson</button>
-</div>
+    <div>
+        <h2 class="col-3-4">{{title}}</h2>
+        <button class="btn btn-select" (click)="addLesson()">Add lesson</button>
+    </div>
+
+    <div class="centered" *ngIf="selectedLesson">
+        <fieldset class="form-info update-form">
+
+            <p [hidden]="!errorMsg" class="error-text">{{errorMsg}}</p>
+
+            <label> Title
+                <input #title type="text" [(ngModel)]="selectedLesson.title" placeholder="Title" required>
+            </label>
+
+            <label> Description
+                <input #description type="text" [(ngModel)]="selectedLesson.description" placeholder="Description" required>
+            </label>
+            <button class="btn btn-select" (click)="onUpdateLesson(title.value, description.value)">Update</button>
+        </fieldset>
+    </div>
+
+
+    <div>
+        <ul class="lessons">
+            <li *ngFor="let lesson of lessons">
+                <div class="lesson-item-container">
+                    <div style="width: 70%">
+                        <h2>{{lesson.title}}</h2>
+                        <p>{{lesson.description}}</p>
+                    </div>
+
+                    <div style="padding: 10px">
+                        <button class="btn btn-select" (click)="onSelect(lesson)">Update lesson</button>
+                        <button class="btn btn-select" (click)="onDelete(lesson)">Delete lesson</button>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

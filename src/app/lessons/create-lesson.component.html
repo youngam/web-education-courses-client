@@ -1,6 +1,6 @@
-<div>
+<div class="container">
 
-    <fieldset class="lesson-info">
+    <fieldset class="form-info">
 
         <p [hidden]="!errorMsg" class="error-text">{{errorMsg}}</p>
 
@@ -11,6 +11,6 @@
         <label> Description
             <input #description type="text" placeholder="Description" required>
         </label>
-        <input (click)="createLesson(title.value, description.value)" type="button" value="Create">
+        <button class="btn btn-select" (click)="createLesson(title.value, description.value)">Create</button>
     </fieldset>
 </div>

@@ -1,5 +1,5 @@
-<div>
-        <fieldset class="user-credentials">
+<div class="container">
+        <fieldset class="form-info">
             <p [hidden]="!errorMsg" class="error-text">{{errorMsg}}</p>
             <label> Login
                 <input #login type="text" placeholder="Login" required>
@@ -8,7 +8,7 @@
             <label> Password
                 <input #password type="password" placeholder="Password" required>
             </label>
-            <input (click)="onSignInClick(login.value, password.value)" type="button" value="Sign in">
-            <input (click)="onSignUpClick(login.value, password.value)" type="button" value="Sign Up">
+            <button class="btn btn-select" (click)="onSignInClick(login.value, password.value)">Sign in</button>
+            <button class="btn btn-select" (click)="onSignUpClick(login.value, password.value)">Sign up</button>
         </fieldset>
 </div>

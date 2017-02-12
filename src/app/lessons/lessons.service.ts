@@ -3,6 +3,7 @@ import {Headers, Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {RootRequest} from "../entity/root-request";
 import {ApiMethods} from "../entity/api-method";
+import {Lesson} from "../entity/lesson";
 /**
  * Created by alex on 2/11/17.
  */
@@ -28,6 +29,24 @@ export class LessonsService {
         };
 
         let rootRequest : RootRequest = new RootRequest(ApiMethods.CREATE_LESSON, request);
+        return this.http.post(this.url, rootRequest, {headers: this.headers})
+            .map(response => response.json());
+    }
+
+    deleteLesson(id: number) : Observable<any> {
+        let request = {
+            id: id
+        };
+
+        let rootRequest : RootRequest = new RootRequest(ApiMethods.DELETE_LESSON, request);
+        return this.http.post(this.url, rootRequest, {headers: this.headers})
+            .map(response => response.json());
+    }
+
+    updateLesson(id: number, title: string, description: string) {
+        let request = new Lesson(id, title, description);
+
+        let rootRequest : RootRequest = new RootRequest(ApiMethods.UPDATE_LESSON, request);
         return this.http.post(this.url, rootRequest, {headers: this.headers})
             .map(response => response.json());
     }
