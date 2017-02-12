@@ -15,7 +15,7 @@ import {CreateLessonComponent} from "./create-lesson.component";
 })
 export class LessonsComponent implements OnInit {
     static readonly URL: string = "lessons";
-    title: string = "LessonsComponent";
+    title: string = "Lessons";
     lessons: Lesson[];
     selectedLesson: Lesson;
 
