@@ -9,6 +9,7 @@ import {AuthService} from "./auth/auth.service";
 import {LessonsComponent} from "./lessons/lessons.component";
 import {LessonsService} from "./lessons/lessons.service";
 import {CreateLessonComponent} from "./lessons/create-lesson.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import {CreateLessonComponent} from "./lessons/create-lesson.component";
         AppComponent,
         AuthComponent,
         LessonsComponent,
-        CreateLessonComponent],
+        CreateLessonComponent,
+        DashboardComponent],
 
     providers: [
         AuthService,

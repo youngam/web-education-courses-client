@@ -268,3 +268,49 @@ h1 {
   width: 100%;
   text-align: center;
 }
+
+
+.flex-container {
+  display: flex;
+}
+
+.logo {
+  background: url("images/web.png") no-repeat;
+  width: 80px;
+  height: 80px;
+}
+
+.nav-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.primary-header {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15%;
+  background: rgba(0, 0, 0, 0.5);
+  font-family: 'Fjalla One', sans-serif;
+  margin-bottom: 50px;
+}
+
+.nav-list li {
+  padding: 10px 0;
+  margin-right: 20px;
+  color: #FFF;
+  background: none;
+  text-transform: uppercase;
+  font-size: 1.05em;
+  font-weight: 500;
+  border-bottom: 3px solid rgba(255, 255, 255, 0);
+  transition: all .4s ease-out;
+}
+
+.nav-list li:hover {
+  border-bottom: 3px solid #FFF;
+  background: none;
+  transition: all .4s ease-out;
+  cursor: pointer;
+}
