@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map'
 import {Md5} from "ts-md5/dist/md5";
 import {RootRequest} from "../entity/root-request";
 import {ApiMethods} from "../entity/api-method";
+import {UserType} from "../entity/user-type";
 /**
  * Created by alex on 2/7/17.
  */
@@ -12,13 +13,17 @@ import {ApiMethods} from "../entity/api-method";
 @Injectable()
 export class AuthService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    url: string = 'http://localhost:8080/getUser';
+    url: string = 'http://localhost:8080/auth';
 
     constructor(private http: Http) {
     }
 
-    signUpUser(name: string, password: string): Observable<any> {
-        let request = this.getUserRequestBody(name, password);
+    signUpUser(name: string, password: string, userTypeId: number): Observable<any> {
+        let request = {
+            name: name,
+            password : Md5.hashStr(password),
+            userTypeId : userTypeId
+        };
 
         let rootRequest: RootRequest = new RootRequest(ApiMethods.SIGN_UP, request);
         console.log("REQUEST: " + JSON.stringify(rootRequest));

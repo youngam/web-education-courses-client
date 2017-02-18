@@ -3,31 +3,29 @@
  */
 
 import {Component, OnInit} from "@angular/core";
-import {AuthService} from "./auth.service";
-import {Profile} from "../entity/profile";
+import {AuthService} from "../auth.service";
+import {Profile} from "../../entity/profile";
+import {RouterModule, Router} from "@angular/router";
+import {SignUpComponent} from "../sign_up/sign-up.component";
 @Component({
     moduleId: module.id,
-    selector: 'auth-component',
-    templateUrl: './auth.component.html',
-    styleUrls: ['auth.component.css']
+    selector: 'sign-in-component',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['sign-in.component.css']
 })
 
-export class AuthComponent {
+export class SignInComponent {
+    static readonly URL: string = "signIn";
     errorMsg: string;
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService,
+                private router: Router) {
 
     }
 
     onSignUpClick(name: string, password: string) : void {
         this.errorMsg = null;
-
-        this.authService.signUpUser(name, password).subscribe(response => {
-
-            if (response.errorMessage != null) this.showError(response.errorMessage);
-
-            else this.setUserInfo(response as Profile);
-        });
+        this.router.navigateByUrl(SignUpComponent.URL);
     }
 
     onSignInClick(name: string, password: string) : void {

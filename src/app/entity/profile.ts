@@ -6,6 +6,7 @@ export class Profile {
    id: number;
    name: string;
    password: string;
+   userTypeId: number;
 
    constructor(name: string, password: string) {
       this.name = name;

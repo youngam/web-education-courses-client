@@ -1,0 +1,17 @@
+<div class="container">
+        <fieldset class="form-info">
+            <p [hidden]="!errorMsg" class="error-text">{{errorMsg}}</p>
+            <label> Login
+                <input #login type="text" placeholder="Login" required>
+            </label>
+
+            <label> Password
+                <input #password type="password" placeholder="Password" required>
+            </label>
+
+            <label> Admin
+                <input class="inline" #isAdmin type="checkbox">
+            </label>
+            <button class="btn btn-select" (click)="onSignUpClick(login.value, password.value, isAdmin.value)">Sign up</button>
+        </fieldset>
+</div>

@@ -11,11 +11,11 @@
             <p [hidden]="!errorMsg" class="error-text">{{errorMsg}}</p>
 
             <label> Title
-                <input #title type="text" [(ngModel)]="selectedLesson.title" placeholder="Title" required>
+                <input #title type="text" [value]="selectedLesson.title" placeholder="Title" required>
             </label>
 
             <label> Description
-                <input #description type="text" [(ngModel)]="selectedLesson.description" placeholder="Description" required>
+                <input #description type="text" [value]="selectedLesson.description" placeholder="Description" required>
             </label>
             <button class="btn btn-select" (click)="onUpdateLesson(title.value, description.value)">Update</button>
         </fieldset>
