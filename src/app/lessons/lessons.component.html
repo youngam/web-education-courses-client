@@ -26,17 +26,22 @@
         <ul class="lessons">
             <li *ngFor="let lesson of lessons">
                 <div class="lesson-item-container">
-                    <div style="width: 70%">
-                        <h2>{{lesson.title}}</h2>
-                        <p>{{lesson.description}}</p>
+                    <div class="lesson-meta-container">
+
+                        <img class="lesson-logo" src="../../assets/images/front-end-logo.png">
+                        <div class="lesson-head-info">
+                            <h2>{{lesson.title}}</h2>
+                            <h4 class="author-hint">Author: {{lesson.author.name}}</h4>
+                        </div>
                     </div>
 
                     <div style="padding: 10px">
                         <button class="btn btn-select" (click)="onSelect(lesson)">Update lesson</button>
                         <button class="btn btn-select" (click)="onDelete(lesson)">Delete lesson</button>
                     </div>
-
                 </div>
+
+                <h3 class="lesson-description">{{lesson.description}}</h3>
             </li>
         </ul>
     </div>

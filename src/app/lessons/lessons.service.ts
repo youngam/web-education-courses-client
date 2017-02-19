@@ -22,13 +22,9 @@ export class LessonsService {
             .map(response => response.json());
     }
 
-    createLesson(title: string, description: string): Observable<any> {
-        let request = {
-            title: title,
-            description: description
-        };
+    createLesson(lesson: Lesson): Observable<any> {
 
-        let rootRequest : RootRequest = new RootRequest(ApiMethods.CREATE_LESSON, request);
+        let rootRequest : RootRequest = new RootRequest(ApiMethods.CREATE_LESSON, lesson);
         return this.http.post(this.url, rootRequest, {headers: this.headers})
             .map(response => response.json());
     }
@@ -43,11 +39,10 @@ export class LessonsService {
             .map(response => response.json());
     }
 
-    updateLesson(id: number, title: string, description: string) {
-        let request = new Lesson(id, title, description);
-
-        let rootRequest : RootRequest = new RootRequest(ApiMethods.UPDATE_LESSON, request);
+    updateLesson(updatedLesson:Lesson) {
+        let rootRequest : RootRequest = new RootRequest(ApiMethods.UPDATE_LESSON, updatedLesson);
         return this.http.post(this.url, rootRequest, {headers: this.headers})
             .map(response => response.json());
     }
+
 }

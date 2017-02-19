@@ -6,6 +6,8 @@ import {Lesson} from "../entity/lesson";
 import {LessonsService} from "./lessons.service";
 import {Router} from "@angular/router";
 import {CreateLessonComponent} from "./create-lesson.component";
+import {AuthService} from "../auth/auth.service";
+import {Profile} from "../entity/profile";
 
 @Component({
     moduleId: module.id,
@@ -18,9 +20,11 @@ export class LessonsComponent implements OnInit {
     title: string = "Lessons";
     lessons: Lesson[];
     selectedLesson: Lesson;
+    currentUser: Profile = this.authService.getSignedInUser();
 
     constructor(private lessonsService: LessonsService,
-                private router: Router) {
+                private router: Router,
+                private authService: AuthService) {
 
     }
 
@@ -51,7 +55,8 @@ export class LessonsComponent implements OnInit {
     }
 
     onUpdateLesson(title: string, description: string) : void {
-        this.lessonsService.updateLesson(this.selectedLesson.id, title, description).subscribe(
+        let lesson = new Lesson(this.selectedLesson.id, title, description, this.currentUser.id);
+        this.lessonsService.updateLesson(lesson).subscribe(
             response => {
                 this.selectedLesson = null;
                 console.log(response);
