@@ -2,7 +2,8 @@
 
     <div class="head-container">
         <h2 class="col-3-4">{{title}}</h2>
-        <button class="btn btn-select" (click)="addLesson()">Add lesson</button>
+        <button class="btn btn-select" [hidden]="!userHasWritePermission()"
+                (click)="addLesson()">Add lesson</button>
     </div>
 
     <div class="centered" *ngIf="selectedLesson">
@@ -36,8 +37,8 @@
                     </div>
 
                     <div style="padding: 10px">
-                        <button class="btn btn-select" (click)="onSelect(lesson)">Update lesson</button>
-                        <button class="btn btn-select" (click)="onDelete(lesson)">Delete lesson</button>
+                        <button [hidden]="!userHasWritePermission()" class="btn btn-select" (click)="onSelect(lesson)">Update lesson</button>
+                        <button [hidden]="!userHasWritePermission()" class="btn btn-select" (click)="onDelete(lesson)">Delete lesson</button>
                     </div>
                 </div>
 

@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {CreateLessonComponent} from "./create-lesson.component";
 import {AuthService} from "../auth/auth.service";
 import {Profile} from "../entity/profile";
+import {UserType} from "../entity/user-type";
 
 @Component({
     moduleId: module.id,
@@ -86,5 +87,11 @@ export class LessonsComponent implements OnInit {
 
     addLesson() {
         this.router.navigate([CreateLessonComponent.URL]);
+    }
+
+    userHasWritePermission() : boolean {
+        let userHasWritePermissions = this.currentUser != null && this.currentUser.userTypeId == UserType.ADMIN.id;
+        console.log("User can modify " + userHasWritePermissions);
+        return userHasWritePermissions;
     }
 }

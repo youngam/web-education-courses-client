@@ -46,6 +46,6 @@ export class SignInComponent {
 
     setUserInfo(userProfile: Profile) : void {
         console.log("RESPONSE user: " + userProfile.name + " " + userProfile.id);
-        this.authService.signUserEvent.next(userProfile);
+        this.authService.setCurrentUser(userProfile);
     }
 }

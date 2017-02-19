@@ -57,4 +57,9 @@ export class AuthService {
             password: Md5.hashStr(password)
         };
     }
+
+    setCurrentUser(userProfile: Profile) {
+        localStorage.setItem(AuthService.CURRENT_USER, JSON.stringify(userProfile));
+        this.signUserEvent.next(userProfile);
+    }
 }
