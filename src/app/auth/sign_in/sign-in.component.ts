@@ -7,6 +7,7 @@ import {AuthService} from "../auth.service";
 import {Profile} from "../../entity/profile";
 import {RouterModule, Router} from "@angular/router";
 import {SignUpComponent} from "../sign_up/sign-up.component";
+import {LessonsComponent} from "../../lessons/lessons.component";
 @Component({
     moduleId: module.id,
     selector: 'sign-in-component',
@@ -47,5 +48,6 @@ export class SignInComponent {
     setUserInfo(userProfile: Profile) : void {
         console.log("RESPONSE user: " + userProfile.name + " " + userProfile.id);
         this.authService.setCurrentUser(userProfile);
+        this.router.navigateByUrl(LessonsComponent.URL);
     }
 }

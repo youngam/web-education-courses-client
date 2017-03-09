@@ -3,6 +3,7 @@ import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 import {UserType} from "../../entity/user-type";
 import {Profile} from "../../entity/profile";
+import {SignInComponent} from "../sign_in/sign-in.component";
 /**
  * Created by alex on 2/18/17.
  */
@@ -48,6 +49,6 @@ export class SignUpComponent {
         console.log("RESPONSE user: " + userProfile.name + " " + userProfile.id + " "
             + userProfile.userTypeId);
 
-        this.router.navigateByUrl(SignUpComponent.URL);
+        this.router.navigateByUrl(SignInComponent.URL);
     }
 }
