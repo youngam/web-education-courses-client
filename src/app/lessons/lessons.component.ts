@@ -9,6 +9,7 @@ import {CreateLessonComponent} from "./create-lesson.component";
 import {AuthService} from "../auth/auth.service";
 import {Profile} from "../entity/profile";
 import {UserType} from "../entity/user-type";
+import {validateFull, validateNonEmpty} from "../utils/validator";
 
 @Component({
     moduleId: module.id,
@@ -21,6 +22,7 @@ export class LessonsComponent implements OnInit {
     title: string = "Lessons";
     lessons: Lesson[];
     selectedLesson: Lesson;
+    errorMsg: string;
     currentUser: Profile = this.authService.getSignedInUser();
 
     constructor(private lessonsService: LessonsService,
@@ -46,7 +48,7 @@ export class LessonsComponent implements OnInit {
         this.selectedLesson = lesson;
     }
 
-    onDelete(lesson: Lesson) : void {
+    onDelete(lesson: Lesson): void {
         this.lessonsService.deleteLesson(lesson.id).subscribe(
             response => {
                 console.log(response);
@@ -55,18 +57,26 @@ export class LessonsComponent implements OnInit {
         )
     }
 
-    onUpdateLesson(title: string, description: string) : void {
-        let lesson = new Lesson(this.selectedLesson.id, title, description, this.currentUser.id);
-        this.lessonsService.updateLesson(lesson).subscribe(
-            response => {
-                this.selectedLesson = null;
-                console.log(response);
-                this.replaceLesson(response);
-            }
-        )
+    onUpdateLesson(title: string, description: string): void {
+
+        let titleValidError = validateNonEmpty(title, "Title") != null ? validateNonEmpty(title, "Title") : "";
+        let descriptionValidError = validateNonEmpty(description, "Description") ? validateNonEmpty(description, "Description") : "";
+        this.errorMsg = titleValidError + descriptionValidError;
+
+        if(this.errorMsg.length == 0) {
+            let lesson = new Lesson(this.selectedLesson.id, title, description, this.currentUser.id);
+
+            this.lessonsService.updateLesson(lesson).subscribe(
+                response => {
+                    this.selectedLesson = null;
+                    console.log(response);
+                    this.replaceLesson(response);
+                }
+            )
+        }
     }
 
-    private replaceLesson(lessonForReplacing: Lesson) : void {
+    private replaceLesson(lessonForReplacing: Lesson): void {
         this.lessons.forEach(lesson => {
                 if (lesson.id == lessonForReplacing.id) {
                     let indexToReplace = this.lessons.indexOf(lesson);
@@ -76,7 +86,7 @@ export class LessonsComponent implements OnInit {
         )
     }
 
-    private removeLesson(id: number) : void {
+    private removeLesson(id: number): void {
         this.lessons.forEach(lesson => {
                 if (lesson.id == id) {
                     this.lessons.splice(this.lessons.indexOf(lesson), 1)
@@ -89,9 +99,10 @@ export class LessonsComponent implements OnInit {
         this.router.navigate([CreateLessonComponent.URL]);
     }
 
-    userHasWritePermission() : boolean {
+    userHasWritePermission(): boolean {
         let userHasWritePermissions = this.currentUser != null && this.currentUser.userTypeId == UserType.ADMIN.id;
         console.log("User can modify " + userHasWritePermissions);
         return userHasWritePermissions;
     }
+
 }

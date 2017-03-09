@@ -5,6 +5,7 @@ import {LessonsComponent} from "./lessons.component";
 import {AuthService} from "../auth/auth.service";
 import {Profile} from "../entity/profile";
 import {Lesson} from "../entity/lesson";
+import {validateNonEmpty} from "../utils/validator";
 /**
  * Created by alex on 2/11/17.
  */
@@ -29,13 +30,19 @@ export class CreateLessonComponent {
 
     createLesson(title: string, description: string) {
         this.errorMsg = null;
-        let lesson = new Lesson(null, title, description, this.currentUser.id);
-        this.lessonsService.createLesson(lesson)
-            .subscribe(response => {
+        let titleValidError = validateNonEmpty(title, "Title") != null ? validateNonEmpty(title, "Title") : "";
+        let descriptionValidError = validateNonEmpty(description, "Description") ? validateNonEmpty(description, "Description") : "";
+        this.errorMsg = titleValidError + descriptionValidError;
 
-            if (response.errorMessage != null) this.errorMsg = response.errorMessage;
-            else this.router.navigate([LessonsComponent.URL]);
+        if(this.errorMsg.length == 0) {
+            let lesson = new Lesson(null, title, description, this.currentUser.id);
+            this.lessonsService.createLesson(lesson)
+                .subscribe(response => {
 
-        });
+                    if (response.errorMessage != null) this.errorMsg = response.errorMessage;
+                    else this.router.navigate([LessonsComponent.URL]);
+
+                });
+        }
     }
 }

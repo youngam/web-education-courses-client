@@ -8,7 +8,7 @@ import {Profile} from "./entity/profile";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     currentUser: Profile = this.authService.getSignedInUser();
     title = 'EducationalCourses';
 
@@ -20,8 +20,7 @@ export class AppComponent implements OnInit {
         )
     }
 
-    ngOnInit(): void {
-        console.log("Current user " + this.currentUser.name);
+    getCurrentUserName () : string  {
+        return this.currentUser != null ? this.currentUser.name : '';
     }
-
 }
